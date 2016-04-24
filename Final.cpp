@@ -7,7 +7,26 @@
 using namespace std;
 
 int main(int arg1, char* arg2[]){
+    Hangman man = Hangman();
+
+    ifstream file;
+    file.open("Wordlist.txt");
+
+    string inword;
+    while(getline(file,inword)){
+
+        stringstream ss(inword);
+
+        string elementOne;
+        getline(ss,elementOne,',');
+
+        man.addWord(inword);
+    }
+    file.close();
+
+
     cout<<"Welcome to Hangman! Please select an option below."<<endl;
+    cout<<endl;
     int option;
     do{
         cout<<"======Main Menu======"<<endl;

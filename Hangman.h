@@ -25,12 +25,14 @@ class Hangman
     public:
         Hangman();
         ~Hangman();
+        void addWord(std::string inword);
         void generateWord();
         std::string checkLetter(std::string);
         std::string checkWord(std::string);
         std::string displayGuesses();
     protected:
     private:
+        std::string wordArray[50];
 };
 
 #endif // HANGMAN_H
