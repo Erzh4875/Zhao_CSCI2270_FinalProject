@@ -7,48 +7,36 @@
 using namespace std;
 
 int main(int arg1, char* arg2[]){
+    cout<<"Welcome to Hangman! Please select an option below."<<endl;
     int option;
     do{
         cout<<"======Main Menu======"<<endl;
-        cout<<"1. Insert movie"<<endl;
-        cout<<"2. Delete movie"<<endl;
-        cout<<"3. Find movie"<<endl;
-        cout<<"4. Print table contents"<<endl;
+        cout<<"1. Generate word"<<endl;
+        cout<<"2. Guess letter"<<endl;
+        cout<<"3. Guess word"<<endl;
+        cout<<"4. Display previous guesses"<<endl;
         cout<<"5. Quit"<<endl;
 
         cin>>option;
 
         if((option == 1)){
-            cin.get();
-
-            cout << "Enter title:" << endl;
-            string name;
-            getline(cin, name);
-
-            cout << "Enter year:" << endl;
-            string date;
-            getline(cin, date);
-            int year = std::stoi(date);
-
 
         }
 
         else if((option == 2)){
             cin.get();
 
-            cout << "Enter title:" << endl;
-            string name;
-            getline(cin, name);
-
-
+            cout << "Enter a letter:" << endl;
+            string letter;
+            getline(cin, letter);
         }
 
         else if((option == 3)){
             cin.get();
 
-            cout << "Enter title:" << endl;
-            string name;
-            getline(cin, name);
+            cout << "Enter word:" << endl;
+            string word;
+            getline(cin, word);
 
 
         }
