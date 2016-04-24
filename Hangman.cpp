@@ -12,13 +12,13 @@ Hangman::~Hangman()
 }
 
 void Hangman::addWord(std::string inword){
-    for(int i = 0; i < 50; i++){
-        wordArray[i] = inword;
-    }
+    wordArray[a] = inword;
+    a++;
 }
 
 void Hangman::generateWord(){
-
+    int random = rand() % 49;
+    std::cout<<wordArray[random]<<std::endl;
 }
 
 std::string Hangman::checkLetter(std::string letter){

@@ -25,6 +25,7 @@ class Hangman
     public:
         Hangman();
         ~Hangman();
+        int a = 0;
         void addWord(std::string inword);
         void generateWord();
         std::string checkLetter(std::string);

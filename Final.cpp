@@ -18,7 +18,7 @@ int main(int arg1, char* arg2[]){
         stringstream ss(inword);
 
         string elementOne;
-        getline(ss,elementOne,',');
+        getline(ss,elementOne);
 
         man.addWord(inword);
     }
@@ -39,7 +39,7 @@ int main(int arg1, char* arg2[]){
         cin>>option;
 
         if((option == 1)){
-
+            man.generateWord();
         }
 
         else if((option == 2)){
