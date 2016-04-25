@@ -26,11 +26,13 @@ class Hangman
         Hangman();
         ~Hangman();
         int a = 0;
+        int wordLength = 0;
         void addWord(std::string inword);
         void generateWord();
         std::string checkLetter(std::string);
         std::string checkWord(std::string);
         std::string displayGuesses();
+        std::string displayProgress();
     protected:
     private:
         std::string wordArray[50];
