@@ -26,6 +26,7 @@ class Hangman
         Hangman();
         ~Hangman();
         int a = 0;
+        //int guessedletterindex = 0;
         int wordLength = 0;
         void addWord(std::string inword);
         void generateWord();
@@ -38,6 +39,7 @@ class Hangman
         std::string wordArray[50];
         Word *head;
         Word *tail;
+        //char guessedLetter[25];
 };
 
 #endif // HANGMAN_H

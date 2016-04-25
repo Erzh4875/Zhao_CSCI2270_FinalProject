@@ -49,6 +49,8 @@ int main(int arg1, char* arg2[]){
             cout << "Enter a letter:" << endl;
             string letter;
             getline(cin, letter);
+
+            man.checkLetter(letter);
         }
 
         else if((option == 3)){
@@ -58,7 +60,7 @@ int main(int arg1, char* arg2[]){
             string word;
             getline(cin, word);
 
-
+            man.checkWord(word);
         }
 
         else if((option == 4)){
