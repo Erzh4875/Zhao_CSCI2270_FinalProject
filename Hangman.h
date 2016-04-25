@@ -3,14 +3,14 @@
 #include <iostream>
 
 struct Word{
-    std::string letterSpot;
+    char letterSpot;
     bool guessed;
     Word *next;
     Word *previous;
 
     Word(){}; // default constructor
 
-    Word(std::string initSpot, Word *initNext, Word *initPrevious, bool initguess)
+    Word(char initSpot, Word *initNext, Word *initPrevious, bool initguess)
     {
         letterSpot = initSpot;
         next = initNext;
@@ -34,6 +34,8 @@ class Hangman
     protected:
     private:
         std::string wordArray[50];
+        Word *head;
+        Word *tail;
 };
 
 #endif // HANGMAN_H
