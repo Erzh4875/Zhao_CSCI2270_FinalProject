@@ -51,6 +51,8 @@ class Hangman
         std::string displayAnswer();
         void resetGame();
         std::string displayMan();
+        void giveHint();
+        void changeDifficulty();
     protected:
     private:
         std::string wordArray[50];

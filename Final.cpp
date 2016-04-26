@@ -38,7 +38,8 @@ int main(int arg1, char* arg2[]){
         cout<<"6. Display answer"<<endl;
         cout<<"7. Display man"<<endl;
         cout<<"8. Reset game"<<endl;
-        cout<<"9. Quit"<<endl;
+        cout<<"9. Give hint"<<endl;
+        cout<<"10. Quit"<<endl;
 
         cin>>option;
 
@@ -85,10 +86,15 @@ int main(int arg1, char* arg2[]){
         else if((option == 8)){
             man.resetGame();
         }
+
         else if((option == 9)){
+            man.giveHint();
+        }
+
+        else if((option == 10)){
             cout<<"Goodbye!"<<endl;
         }
-    } while(option != 9);
+    } while(option != 10);
 
     return 0;
 }

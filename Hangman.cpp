@@ -70,7 +70,14 @@ std::string Hangman::checkLetter(std::string letter){   //user guesses letter
     }
 
     if(wrongGuesses == 6){
+        Word *temp = Wordhead;
         std::cout<<"You have been wrong too many times! You lose!"<<std::endl;
+        std::cout<<"The word was ";
+        while(temp != nullptr){
+            std::cout<<temp->letterSpot;
+            temp = temp->next;
+        }
+        std::cout<<Wordtail->letterSpot<<"."<<std::endl;
         return "";
     }
 
@@ -108,6 +115,7 @@ std::string Hangman::checkWord(std::string word){   //user guesses entire word
 
     if(knownSum == inputSum){   //user guesses word correctly
         std::cout<<"You correctly guessed the word!"<<std::endl;
+        std::cout<<"Please reset game and generate a new word."<<std::endl;
         Word *temp = Wordhead;
         while(temp != nullptr){
             temp->guessed = true;
@@ -123,6 +131,13 @@ std::string Hangman::checkWord(std::string word){   //user guesses entire word
 
     if(wrongGuesses == 6){
         std::cout<<"You have been wrong too many times! You lose!"<<std::endl;
+        Word *temp = Wordhead;
+        std::cout<<"The word was ";
+        while(temp != nullptr){
+            std::cout<<temp->letterSpot;
+            temp = temp->next;
+        }
+        std::cout<<Wordtail->letterSpot<<"."<<std::endl;
         return "";
     }
 
@@ -243,4 +258,25 @@ void Hangman::resetGame(){  //required in order to move onto a new game
     while(current);
     Letterhead = nullptr;
     std::cout<<"Your game has been reset! Guesses left: 6"<<std::endl;
+}
+
+void Hangman::giveHint(){
+    int counter = 1;
+    if(wrongGuesses < 4){
+        Word *temp = Wordhead;
+        while(temp != nullptr){
+            if(temp->guessed == false){
+                temp->guessed = true;
+                wrongGuesses = wrongGuesses + 2;
+                std::cout<<"The letter in spot number "<<counter<<" has been revealed."<<std::endl;
+                std::cout<<"You now have "<<6 - wrongGuesses<<" guesses remaining."<<std::endl;
+                break;
+            }
+            counter++;
+            temp = temp->next;
+        }
+    }
+    else{
+        std::cout<<"It costs 2 guesses to get a hint. You don't have enough guesses."<<std::endl;
+    }
 }
