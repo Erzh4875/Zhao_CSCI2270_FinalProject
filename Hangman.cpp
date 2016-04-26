@@ -37,23 +37,20 @@ void Hangman::generateWord(){
 
     std::cout<<"Your word has "<<hiddenWord.length()<<" letters."<<std::endl;
     std::cout<<wordArray[random]<<std::endl;
-
-    /*for(int i = 0; i < 26; i++){
-        guessedLetter[i] = 0;
-    }
-    guessedletterindex = 0;*/
 }
 
 std::string Hangman::checkLetter(std::string letter){
+    guessedLetters *guess = Letterhead;
+    while(guess != nullptr){
+        if(guess->letter == letter){
+            std::cout<<"You have already guessed that letter."<<std::endl;
+            return "";
+        }
+        guess = guess->next;
+    }
     Word *tmp = Wordhead;
     char lowletter = letter[0];
     int correct = 0;
-    /*for(int i = 0; i < guessedletterindex; i++){
-        if(guessedLetter[i] == tolower(lowletter)){
-            std::cout<<"You have already guessed that letter."<<std::endl;
-            break;
-        }
-    }*/
     while(tmp != nullptr){
         if(tmp->letterSpot == tolower(lowletter)){
             tmp->guessed = true;
@@ -64,11 +61,21 @@ std::string Hangman::checkLetter(std::string letter){
     if(correct == 1){
         std::cout<<"There is "<<correct<<" "<<lowletter<<"."<<std::endl;
     }
+    else if(correct == 0){
+        std::cout<<"There are "<<correct<<" "<<lowletter<<"'s."<<std::endl;
+        wrongGuesses++;
+    }
     else{
         std::cout<<"There are "<<correct<<" "<<lowletter<<"'s."<<std::endl;
     }
 
+    if(wrongGuesses == 6){
+        std::cout<<"You have been wrong too many times! You lose!"<<std::endl;
+        return "";
+    }
+
     guessedLetters *finder = new guessedLetters(letter, nullptr);
+    guessedletterindex++;
     if(Letterhead == nullptr){
         Letterhead = finder;
         Lettertail = finder;
@@ -101,14 +108,44 @@ std::string Hangman::checkWord(std::string word){
 
     if(knownSum == inputSum){
         std::cout<<"You correctly guessed the word!"<<std::endl;
+        Word *temp = Wordhead;
+        while(temp != nullptr){
+            temp->guessed = true;
+            temp = temp->next;
+        }
+        Wordtail->guessed = true;
     }
     else{
         std::cout<<"You are incorrect!"<<std::endl;
+        wrongGuesses++;
     }
+
+    if(wrongGuesses == 6){
+        std::cout<<"You have been wrong too many times! You lose!"<<std::endl;
+        return "";
+    }
+
+    guessedLetters *finder = new guessedLetters(word, nullptr);
+    guessedletterindex++;
+    if(Letterhead == nullptr){
+        Letterhead = finder;
+        Lettertail = finder;
+    }
+    else{
+        Lettertail->next = finder;
+        Lettertail = finder;
+    }
+    return "";
 }
 
 std::string Hangman::displayGuesses(){
-
+    guessedLetters *temp = Letterhead;
+    std::cout<<"So far you have guessed: "<<std::endl;
+    while(temp != nullptr){
+        std::cout<<temp->letter<<std::endl;
+        temp = temp->next;
+    }
+    return "";
 }
 
 std::string Hangman::displayProgress(){
@@ -125,6 +162,12 @@ std::string Hangman::displayProgress(){
 
         temp = temp->next;
     }
+    if(Wordtail->guessed == true){
+        std::cout<<Wordtail->letterSpot;
+    }
+    else{
+        std::cout<<"_";
+    }
     std::cout<<std::endl;
     return "";
 }
@@ -137,5 +180,43 @@ std::string Hangman::displayAnswer(){
         finding = finding->next;
     }
     std::cout<<Wordtail->letterSpot<<std::endl;
+    return "";
+}
+
+std::string Hangman::displayMan(){
+    if(wrongGuesses == 0){
+        std::cout<<"No man here!"<<std::endl;
+    }
+    else if(wrongGuesses == 1){
+        std::cout<<" O "<<std::endl;
+    }
+    else if(wrongGuesses == 2){
+        std::cout<<" O "<<std::endl;
+        std::cout<<" | "<<std::endl;
+        std::cout<<" | "<<std::endl;
+    }
+    else if(wrongGuesses == 3){
+        std::cout<<" O "<<std::endl;
+        std::cout<<"<| "<<std::endl;
+        std::cout<<" | "<<std::endl;
+    }
+    else if(wrongGuesses == 4){
+        std::cout<<" O "<<std::endl;
+        std::cout<<"<|>"<<std::endl;
+        std::cout<<" | "<<std::endl;
+    }
+    else if(wrongGuesses == 5){
+        std::cout<<" O "<<std::endl;
+        std::cout<<"<|>"<<std::endl;
+        std::cout<<" | "<<std::endl;
+        std::cout<<"^  "<<std::endl;
+    }
+    else{
+        std::cout<<"I'm dead D:"<<std::endl;
+        std::cout<<" O "<<std::endl;
+        std::cout<<"<|>"<<std::endl;
+        std::cout<<" | "<<std::endl;
+        std::cout<<"^ ^"<<std::endl;
+    }
     return "";
 }

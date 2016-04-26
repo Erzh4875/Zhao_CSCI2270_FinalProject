@@ -36,7 +36,8 @@ int main(int arg1, char* arg2[]){
         cout<<"4. Display previous guesses"<<endl;
         cout<<"5. Display progress"<<endl;
         cout<<"6. Display answer"<<endl;
-        cout<<"7. Quit"<<endl;
+        cout<<"7. Display man"<<endl;
+        cout<<"8. Quit"<<endl;
 
         cin>>option;
 
@@ -65,7 +66,7 @@ int main(int arg1, char* arg2[]){
         }
 
         else if((option == 4)){
-
+            man.displayGuesses();
         }
 
         else if((option == 5)){
@@ -77,9 +78,12 @@ int main(int arg1, char* arg2[]){
         }
 
         else if((option == 7)){
+            man.displayMan();
+        }
+        else if((option == 8)){
             cout<<"Goodbye!"<<endl;
         }
-    } while(option != 7);
+    } while(option != 8);
 
     return 0;
 }

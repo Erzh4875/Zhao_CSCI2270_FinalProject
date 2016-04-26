@@ -39,8 +39,9 @@ class Hangman
         Hangman();
         ~Hangman();
         int a = 0;
-        //int guessedletterindex = 0;
+        int guessedletterindex = 0;
         int wordLength = 0;
+        int wrongGuesses = 0;
         void addWord(std::string inword);
         void generateWord();
         std::string checkLetter(std::string);
@@ -48,6 +49,8 @@ class Hangman
         std::string displayGuesses();
         std::string displayProgress();
         std::string displayAnswer();
+        void resetGame();
+        std::string displayMan();
     protected:
     private:
         std::string wordArray[50];
@@ -55,7 +58,6 @@ class Hangman
         Word *Wordtail;
         guessedLetters *Letterhead;
         guessedLetters *Lettertail;
-        //std::string guessedLetters[25];
 };
 
 #endif // HANGMAN_H
