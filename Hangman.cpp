@@ -141,6 +141,10 @@ std::string Hangman::checkWord(std::string word){   //user guesses entire word
 
 std::string Hangman::displayGuesses(){  //shows user's previous guesses
     guessedLetters *temp = Letterhead;
+    if(Letterhead == nullptr){
+        std::cout<<"You have not guessed anything yet."<<std::endl;
+        return "";
+    }
     std::cout<<"So far you have guessed: "<<std::endl;
     while(temp != nullptr){
         std::cout<<temp->letter<<std::endl;
@@ -227,5 +231,16 @@ void Hangman::resetGame(){  //required in order to move onto a new game
     guessedletterindex = 0;
     wordLength = 0;
     wrongGuesses = 0;
+    guessedLetters *current = Letterhead;
+
+    do{
+        if(Letterhead == nullptr){
+            break;
+        }
+        delete current;
+        current = current->next;
+    }
+    while(current);
+    Letterhead = nullptr;
     std::cout<<"Your game has been reset! Guesses left: 6"<<std::endl;
 }
