@@ -47,6 +47,7 @@ class Hangman
         std::string checkWord(std::string);
         std::string displayGuesses();
         std::string displayProgress();
+        std::string displayAnswer();
     protected:
     private:
         std::string wordArray[50];

@@ -7,6 +7,8 @@ Hangman::Hangman()
     //ctor
     Letterhead = nullptr;
     Lettertail = nullptr;
+    Wordhead = nullptr;
+    Wordtail = nullptr;
 }
 
 Hangman::~Hangman()
@@ -75,6 +77,8 @@ std::string Hangman::checkLetter(std::string letter){
         Lettertail->next = finder;
         Lettertail = finder;
     }
+
+    return "";
 }
 
 std::string Hangman::checkWord(std::string word){
@@ -118,6 +122,20 @@ std::string Hangman::displayProgress(){
         else{
             std::cout<<"_";
         }
+
         temp = temp->next;
     }
+    std::cout<<std::endl;
+    return "";
+}
+
+std::string Hangman::displayAnswer(){
+    Word *finding = Wordhead;
+    std::cout<<"The answer is: "<<finding->letterSpot;
+    while(finding->next != nullptr){
+        std::cout<<finding->next->letterSpot;
+        finding = finding->next;
+    }
+    std::cout<<Wordtail->letterSpot<<std::endl;
+    return "";
 }
