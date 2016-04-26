@@ -5,6 +5,8 @@
 Hangman::Hangman()
 {
     //ctor
+    Letterhead = nullptr;
+    Lettertail = nullptr;
 }
 
 Hangman::~Hangman()
@@ -22,14 +24,14 @@ void Hangman::generateWord(){
     int wordLength = wordArray[random].length();
     std::string hiddenWord= wordArray[random];
     char firstletter = hiddenWord[0];
-    head = new Word(firstletter, nullptr, nullptr, false);  //Building a linked list with each node being a letter
-    Word *nextletter = head;
+    Wordhead = new Word(firstletter, nullptr, nullptr, false);  //Building a linked list with each node being a letter
+    Word *nextletter = Wordhead;
     for(int i = 1; i < hiddenWord.length()-1; i++){
         Word *currentletter = new Word(hiddenWord[i], nullptr, nextletter, false);
         nextletter->next = currentletter;
         nextletter = currentletter;
     }
-    tail = new Word(hiddenWord[hiddenWord.length()-1], nullptr, nextletter, false);
+    Wordtail = new Word(hiddenWord[hiddenWord.length()-1], nullptr, nextletter, false);
 
     std::cout<<"Your word has "<<hiddenWord.length()<<" letters."<<std::endl;
     std::cout<<wordArray[random]<<std::endl;
@@ -41,7 +43,7 @@ void Hangman::generateWord(){
 }
 
 std::string Hangman::checkLetter(std::string letter){
-    Word *tmp = head;
+    Word *tmp = Wordhead;
     char lowletter = letter[0];
     int correct = 0;
     /*for(int i = 0; i < guessedletterindex; i++){
@@ -63,12 +65,20 @@ std::string Hangman::checkLetter(std::string letter){
     else{
         std::cout<<"There are "<<correct<<" "<<lowletter<<"'s."<<std::endl;
     }
-    //guessedLetter[guessedletterindex] = tolower(lowletter);
-    //guessedletterindex++;
+
+    guessedLetters *finder = new guessedLetters(letter, nullptr);
+    if(Letterhead == nullptr){
+        Letterhead = finder;
+        Lettertail = finder;
+    }
+    else{
+        Lettertail->next = finder;
+        Lettertail = finder;
+    }
 }
 
 std::string Hangman::checkWord(std::string word){
-    Word *tmp = head;
+    Word *tmp = Wordhead;
     int i = 0;
     char c;
     int inputSum = 0;
@@ -83,7 +93,7 @@ std::string Hangman::checkWord(std::string word){
         knownSum = knownSum + int(tmp->letterSpot);
         tmp = tmp->next;
     }
-    knownSum = knownSum + int(tail->letterSpot);
+    knownSum = knownSum + int(Wordtail->letterSpot);
 
     if(knownSum == inputSum){
         std::cout<<"You correctly guessed the word!"<<std::endl;
@@ -98,7 +108,7 @@ std::string Hangman::displayGuesses(){
 }
 
 std::string Hangman::displayProgress(){
-    Word *temp = head;  //Shows user how complete their word is
+    Word *temp = Wordhead;  //Shows user how complete their word is
     std::cout<<"Here's how much progress you've made."<<std::endl;
 
     while(temp != nullptr){

@@ -2,6 +2,19 @@
 #define HANGMAN_H
 #include <iostream>
 
+struct guessedLetters{
+    std::string letter;
+    guessedLetters *next;
+
+    guessedLetters(){};
+
+    guessedLetters(std::string initletter, guessedLetters *initNext)
+    {
+        letter = initletter;
+        next = initNext;
+    }
+};
+
 struct Word{
     char letterSpot;
     bool guessed;
@@ -37,9 +50,11 @@ class Hangman
     protected:
     private:
         std::string wordArray[50];
-        Word *head;
-        Word *tail;
-        //char guessedLetter[25];
+        Word *Wordhead;
+        Word *Wordtail;
+        guessedLetters *Letterhead;
+        guessedLetters *Lettertail;
+        //std::string guessedLetters[25];
 };
 
 #endif // HANGMAN_H
