@@ -39,6 +39,7 @@ class Hangman
         Hangman();
         ~Hangman();
         int a = 0;
+        int subject = 1;
         int guessedletterindex = 0;
         int wordLength = 0;
         int wrongGuesses = 0;
@@ -52,10 +53,10 @@ class Hangman
         void resetGame();
         std::string displayMan();
         void giveHint();
-        void changeDifficulty();
+        void changeSubject();
     protected:
     private:
-        std::string wordArray[50];
+        std::string wordArray[75];
         Word *Wordhead;
         Word *Wordtail;
         guessedLetters *Letterhead;

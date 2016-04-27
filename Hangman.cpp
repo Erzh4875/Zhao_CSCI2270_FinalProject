@@ -1,6 +1,7 @@
 #include "Hangman.h"
 #include <iostream>
 #include <locale>
+#include <stdlib.h>
 
 Hangman::Hangman()
 {
@@ -22,9 +23,31 @@ void Hangman::addWord(std::string inword){
 }
 
 void Hangman::generateWord(){   //find a random word inside wordArray
-    int random = rand() % 49;
-    int wordLength = wordArray[random].length();
-    std::string hiddenWord= wordArray[random];
+    int rando = 0;
+    while(rando == 0){
+        if(subject == 1){
+            srand (time(NULL));
+            rando = rand() % 15;
+        }
+        else if(subject == 2){
+            srand (time(NULL));
+            rando = rand() % 15 + 14;
+        }
+        else if(subject == 3){
+            srand (time(NULL));
+            rando = rand() % 15 + 29;
+        }
+        else if(subject == 4){
+            srand (time(NULL));
+            rando = rand() % 15 + 44;
+        }
+        else{
+            srand (time(NULL));
+            rando = rand() % 15 + 59;
+        }
+    }
+    int wordLength = wordArray[rando].length();
+    std::string hiddenWord= wordArray[rando];
     char firstletter = hiddenWord[0];
     Wordhead = new Word(firstletter, nullptr, nullptr, false);  //Building a linked list with each node being a letter
     Word *nextletter = Wordhead;
@@ -36,6 +59,21 @@ void Hangman::generateWord(){   //find a random word inside wordArray
     Wordtail = new Word(hiddenWord[hiddenWord.length()-1], nullptr, nextletter, false);
 
     std::cout<<"Your word has "<<hiddenWord.length()<<" letters."<<std::endl;
+    if(subject == 1){
+        std::cout<<"The subject is fruits."<<std::endl;
+    }
+    else if(subject == 2){
+        std::cout<<"The subject is sports."<<std::endl;
+    }
+    else if(subject == 3){
+        std::cout<<"The subject is animals."<<std::endl;
+    }
+    else if(subject == 4){
+        std::cout<<"The subject is methods of transportation."<<std::endl;
+    }
+    else{
+        std::cout<<"The subject is colors."<<std::endl;
+    }
 }
 
 std::string Hangman::checkLetter(std::string letter){   //user guesses letter
@@ -248,6 +286,13 @@ void Hangman::resetGame(){  //required in order to move onto a new game
     wrongGuesses = 0;
     guessedLetters *current = Letterhead;
 
+    Word *temp = Wordhead;
+    while(temp != nullptr){
+        temp->guessed = false;
+        temp = temp->next;
+    }
+    Wordtail->guessed = false;
+
     do{
         if(Letterhead == nullptr){
             break;
@@ -258,11 +303,13 @@ void Hangman::resetGame(){  //required in order to move onto a new game
     while(current);
     Letterhead = nullptr;
     std::cout<<"Your game has been reset! Guesses left: 6"<<std::endl;
+    std::cout<<"A new word has been generated."<<std::endl;
+    generateWord();
 }
 
-void Hangman::giveHint(){
+void Hangman::giveHint(){   //gives user a letter in exchange for 2 wrong guesses
     int counter = 1;
-    if(wrongGuesses < 4){
+    if(wrongGuesses < 4){   //user can't use this option if they have 1 or 2 guesses remaining
         Word *temp = Wordhead;
         while(temp != nullptr){
             if(temp->guessed == false){
@@ -276,7 +323,41 @@ void Hangman::giveHint(){
             temp = temp->next;
         }
     }
-    else{
+    else{   //if user doesn't have enough guesses to exchange
         std::cout<<"It costs 2 guesses to get a hint. You don't have enough guesses."<<std::endl;
     }
+}
+
+void Hangman::changeSubject(){  //changes the subject and resets everything
+    if(subject == 5){
+        subject = 1;
+    }
+    else{
+        subject = subject + 1;
+    }
+
+    a = 0;
+    guessedletterindex = 0;
+    wordLength = 0;
+    wrongGuesses = 0;
+    guessedLetters *current = Letterhead;
+    Word *temp = Wordhead;
+
+    while(temp != nullptr){ //resets the correctly guessed option
+        temp->guessed = false;
+        temp = temp->next;
+    }
+    Wordtail->guessed = false;
+
+    do{ //deletes previous guesses linked list
+        if(Letterhead == nullptr){
+            break;
+        }
+        delete current;
+        current = current->next;
+    }
+    while(current);
+    Letterhead = nullptr;
+    generateWord();
+    std::cout<<"Subject has been changed! You have been given a new word."<<std::endl;
 }

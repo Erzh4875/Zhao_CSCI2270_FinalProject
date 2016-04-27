@@ -24,7 +24,6 @@ int main(int arg1, char* arg2[]){
     }
     file.close();
 
-
     cout<<"Welcome to Hangman! Please select an option below."<<endl;
     cout<<endl;
     int option;
@@ -39,7 +38,8 @@ int main(int arg1, char* arg2[]){
         cout<<"7. Display man"<<endl;
         cout<<"8. Reset game"<<endl;
         cout<<"9. Give hint"<<endl;
-        cout<<"10. Quit"<<endl;
+        cout<<"10. Change subject"<<endl;
+        cout<<"11. Quit"<<endl;
 
         cin>>option;
 
@@ -92,9 +92,13 @@ int main(int arg1, char* arg2[]){
         }
 
         else if((option == 10)){
+            man.changeSubject();
+        }
+
+        else if((option == 11)){
             cout<<"Goodbye!"<<endl;
         }
-    } while(option != 10);
+    } while(option != 11);
 
     return 0;
 }
