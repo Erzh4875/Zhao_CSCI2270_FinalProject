@@ -200,9 +200,10 @@ std::string Hangman::displayGuesses(){  //shows user's previous guesses
     }
     std::cout<<"So far you have guessed: "<<std::endl;
     while(temp != nullptr){
-        std::cout<<temp->letter<<std::endl;
+        std::cout<<temp->letter;
         temp = temp->next;
     }
+    std::cout<<std::endl;
     return "";
 }
 

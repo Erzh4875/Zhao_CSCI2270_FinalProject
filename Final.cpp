@@ -27,6 +27,7 @@ int main(int arg1, char* arg2[]){
     cout<<"Welcome to Hangman! Please select an option below."<<endl;
     cout<<endl;
     int option;
+    man.generateWord();
     do{
         cout<<"======Main Menu======"<<endl;
         cout<<"1. Generate word"<<endl;
@@ -55,6 +56,8 @@ int main(int arg1, char* arg2[]){
             getline(cin, letter);
 
             man.checkLetter(letter);
+            man.displayGuesses();
+            man.displayProgress();
         }
 
         else if((option == 3)){
