@@ -55,6 +55,8 @@ int main(int arg1, char* arg2[]){
             getline(cin, letter);
 
             man.checkLetter(letter);
+            man.displayGuesses();
+            man.displayProgress();
         }
 
         else if((option == 3)){
