@@ -6,6 +6,13 @@
 #include "Hangman.h"
 using namespace std;
 
+bool isNumber(const string& s)
+{
+    string::const_iterator it = s.begin();
+    while (it != s.end() && isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 int main(int arg1, char* arg2[]){
     Hangman man = Hangman();
 
@@ -27,7 +34,12 @@ int main(int arg1, char* arg2[]){
     cout<<"Welcome to Hangman! Please select an option below."<<endl;
     cout<<endl;
     int option;
-    do{
+    bool flag = true;
+    string ans;
+    string word;
+    string letter;
+    int ans1;
+    while (flag){
         cout<<"======Main Menu======"<<endl;
         cout<<"1. Generate word"<<endl;
         cout<<"2. Guess letter"<<endl;
@@ -40,65 +52,78 @@ int main(int arg1, char* arg2[]){
         cout<<"9. Give hint"<<endl;
         cout<<"10. Change subject"<<endl;
         cout<<"11. Quit"<<endl;
+		
+        getline (cin, ans);
+		
+		if (isNumber(ans) != true){
+			cout<<"Wrong input"<<endl;
+			continue;
+		} else {
+			if(ans.length()>2){
+				cout<<"Wrong input"<<endl;
+				continue;
+			} else {
+			ans1 = stoi(ans);
+			
+			}	
+		}
+		switch (ans1){
+        
+	    	case 1:
+				man.generateWord();
+	    	break;
+	    	case 2:
 
-        cin>>option;
+				cout << "Enter a letter:" << endl;
+				
+				getline(cin, letter);
 
-        if((option == 1)){
-            man.generateWord();
-        }
+				man.checkLetter(letter);
+	    	break;
+	    	case 3:
+				cin.get();
 
-        else if((option == 2)){
-            cin.get();
+				cout << "Enter word:" << endl;
+				
+				getline(cin, word);
 
-            cout << "Enter a letter:" << endl;
-            string letter;
-            getline(cin, letter);
-
-            man.checkLetter(letter);
-        }
-
-        else if((option == 3)){
-            cin.get();
-
-            cout << "Enter word:" << endl;
-            string word;
-            getline(cin, word);
-
-            man.checkWord(word);
-        }
-
-        else if((option == 4)){
-            man.displayGuesses();
-        }
-
-        else if((option == 5)){
-            man.displayProgress();
-        }
-
-        else if((option == 6)){
-            man.displayAnswer();
-        }
-
-        else if((option == 7)){
-            man.displayMan();
-        }
-
-        else if((option == 8)){
-            man.resetGame();
-        }
-
-        else if((option == 9)){
-            man.giveHint();
-        }
-
-        else if((option == 10)){
-            man.changeSubject();
-        }
-
-        else if((option == 11)){
-            cout<<"Goodbye!"<<endl;
-        }
-    } while(option != 11);
-
+				man.checkWord(word);
+	    	break;
+	    	case 4:
+				man.displayGuesses();
+	    	
+	    	break;
+	    	case 5:
+				man.displayProgress();
+	    	
+	    	break;
+	    	case 6:
+				man.displayAnswer();
+	    	
+	    	break;
+	    	case 7:
+				man.displayMan();
+	    	
+	    	break;
+	    	case 8:
+				man.resetGame();
+	    	
+	    	break;
+	    	case 9:
+				man.giveHint();
+	    	
+	    	break;
+	    	case 10:
+				man.changeSubject();
+	    	
+	    	break;
+	    	case 11:
+				cout<<"Goodbye!"<<endl;
+				flag = false;
+				break;
+			default: 
+				cout<<"Incorrect input"<<endl;
+		}
+	}
     return 0;
 }
