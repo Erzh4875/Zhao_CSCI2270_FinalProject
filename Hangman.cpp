@@ -220,11 +220,18 @@ std::string Hangman::displayProgress(){
 
         temp = temp->next;
     }
+    if(Wordtail != nullptr)
+    {
     if(Wordtail->guessed == true){
         std::cout<<Wordtail->letterSpot;
     }
     else{
         std::cout<<"_";
+    }
+    }
+    else
+    {
+        std::cout << "You have not generated a word yet.";
     }
     std::cout<<std::endl;
     return "";
